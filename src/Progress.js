@@ -11,7 +11,7 @@ class Progress extends Component {
     this.handleProgressUpdate = this.handleProgressUpdate.bind(this);
 
     // and set our initial state
-    this.state = {currentTime: null, duration: null};
+    this.state = {currentTime: this.handleMakeTimeReadable(0), duration: this.handleMakeTimeReadable(0)};
   }
 
   componentDidMount() {
