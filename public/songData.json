@@ -1,0 +1,43 @@
+{
+  "data": [
+  {
+    "type": "songs",
+    "id": "1",
+    "attributes": {
+      "title": "Integrales Disko Them",
+      "artist": "Keith Jars",
+      "album": "Huesca ep2",
+      "url": "/Keith_Jars_-_05_-_Integrales_Disko_Them.mp3"
+    }
+  },
+  {
+    "type": "songs",
+    "id": "2",
+    "attributes": {
+      "title": "Fire on the Mountain",
+      "artist": "Phil Lesh and Friends",
+      "album": "Live at Warfield Theater on 1999-04-16",
+      "url": "https://archive.org/download/1999-04-16.paf.sbd.unknown.10169.sbeok.flacf/pf99-04-16d3t04.mp3"
+    }
+  },
+  {
+    "type": "songs",
+    "id": "3",
+    "attributes": {
+      "title": "Scarlet Begonias",
+      "artist": "Phil Lesh and Friends",
+      "album": "Live at Warfield Theater on 1999-04-16",
+      "url": "https://archive.org/download/1999-04-16.paf.sbd.unknown.10169.sbeok.flacf/pf99-04-16d3t03.mp3"
+    }
+  },
+  {
+    "type": "songs",
+    "id": "4",
+    "attributes": {
+      "title": "Walkyra",
+      "artist": "Keith Jars",
+      "album": "Huesca ep2",
+      "url": "/Keith_Jars_-_04_-_Walkyra.mp3"
+    }
+  }]
+}

@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "bootstrap": "3",
+    "react-bootstrap": "^0.31.3"
+  },
+  "devDependencies": {
+    "jest": "^21.0.2"
+  }
+}

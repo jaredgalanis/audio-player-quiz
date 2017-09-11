@@ -1,0 +1,47 @@
+<svg width="163" height="163" viewBox="0 0 163 163" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Group</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(554 -223)">
+<g id="Group">
+<g id="Ellipse">
+<use xlink:href="#path0_fill" transform="translate(-550 227)" fill="#FF2A2A"/>
+<mask id="mask0_outline_out">
+<rect id="mask0_outline_inv" fill="white" x="-4" y="-4" width="163" height="163" transform="translate(-550 227)"/>
+<use xlink:href="#path0_fill" fill="black" transform="translate(-550 227)"/>
+</mask>
+<g mask="url(#mask0_outline_out)">
+<use xlink:href="#path1_stroke_2x" transform="translate(-550 227)" fill="#D7D7D7"/>
+</g>
+</g>
+<g id="Group">
+<g id="Rectangle 2" filter="url(#filter0_d)">
+<use xlink:href="#path2_fill" transform="translate(-498 270)" fill="#FFFFFF"/>
+</g>
+<g id="Rectangle 2" filter="url(#filter1_d)">
+<use xlink:href="#path2_fill" transform="translate(-465 270)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d" filterUnits="userSpaceOnUse" x="-498" y="270" width="20" height="73" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+<feOffset dx="2" dy="3"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<filter id="filter1_d" filterUnits="userSpaceOnUse" x="-465" y="270" width="20" height="73" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+<feOffset dx="2" dy="3"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<path id="path0_fill" d="M 155 77.5C 155 120.302 120.302 155 77.5 155C 34.6979 155 0 120.302 0 77.5C 0 34.6979 34.6979 0 77.5 0C 120.302 0 155 34.6979 155 77.5Z"/>
+<path id="path1_stroke_2x" d="M 151 77.5C 151 118.093 118.093 151 77.5 151L 77.5 159C 122.511 159 159 122.511 159 77.5L 151 77.5ZM 77.5 151C 36.9071 151 4 118.093 4 77.5L -4 77.5C -4 122.511 32.4888 159 77.5 159L 77.5 151ZM 4 77.5C 4 36.9071 36.9071 4 77.5 4L 77.5 -4C 32.4888 -4 -4 32.4888 -4 77.5L 4 77.5ZM 77.5 4C 118.093 4 151 36.9071 151 77.5L 159 77.5C 159 32.4888 122.511 -4 77.5 -4L 77.5 4Z"/>
+<path id="path2_fill" d="M 0 4C 0 1.79086 1.79086 0 4 0L 14 0C 16.2091 0 18 1.79086 18 4L 18 66C 18 68.2091 16.2091 70 14 70L 4 70C 1.79086 70 0 68.2091 0 66L 0 4Z"/>
+</defs>
+</svg>

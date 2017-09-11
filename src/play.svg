@@ -1,0 +1,34 @@
+<svg width="163" height="163" viewBox="0 0 163 163" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+<title>Group</title>
+<desc>Created using Figma</desc>
+<g id="Canvas" transform="translate(554 451)">
+<g id="Group">
+<g id="Ellipse">
+<use xlink:href="#path0_fill" transform="translate(-550 -447)" fill="#FF2A2A"/>
+<mask id="mask0_outline_out">
+<rect id="mask0_outline_inv" fill="white" x="-4" y="-4" width="163" height="163" transform="translate(-550 -447)"/>
+<use xlink:href="#path0_fill" fill="black" transform="translate(-550 -447)"/>
+</mask>
+<g mask="url(#mask0_outline_out)">
+<use xlink:href="#path1_stroke_2x" transform="translate(-550 -447)" fill="#D7D7D7"/>
+</g>
+</g>
+<g id="Polygon" filter="url(#filter0_d)">
+<use xlink:href="#path2_fill" transform="matrix(6.12323e-17 1 -1 6.12323e-17 -429 -413)" fill="#FFFFFF"/>
+</g>
+</g>
+</g>
+<defs>
+<filter id="filter0_d" filterUnits="userSpaceOnUse" x="-495" y="-405" width="64" height="74" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 255 0"/>
+<feOffset dx="2" dy="3"/>
+<feColorMatrix type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.25 0"/>
+<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow" result="shape"/>
+</filter>
+<path id="path0_fill" d="M 155 77.5C 155 120.302 120.302 155 77.5 155C 34.6979 155 0 120.302 0 77.5C 0 34.6979 34.6979 0 77.5 0C 120.302 0 155 34.6979 155 77.5Z"/>
+<path id="path1_stroke_2x" d="M 151 77.5C 151 118.093 118.093 151 77.5 151L 77.5 159C 122.511 159 159 122.511 159 77.5L 151 77.5ZM 77.5 151C 36.9071 151 4 118.093 4 77.5L -4 77.5C -4 122.511 32.4888 159 77.5 159L 77.5 151ZM 4 77.5C 4 36.9071 36.9071 4 77.5 4L 77.5 -4C 32.4888 -4 -4 32.4888 -4 77.5L 4 77.5ZM 77.5 4C 118.093 4 151 36.9071 151 77.5L 159 77.5C 159 32.4888 122.511 -4 77.5 -4L 77.5 4Z"/>
+<path id="path2_fill" d="M 40.0359 6C 41.5755 3.33333 45.4245 3.33333 46.9641 6L 77.708 59.25C 79.2476 61.9167 77.3231 65.25 74.2439 65.25L 12.7561 65.25C 9.6769 65.25 7.7524 61.9167 9.292 59.25L 40.0359 6Z"/>
+</defs>
+</svg>

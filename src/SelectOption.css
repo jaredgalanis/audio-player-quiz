@@ -1,0 +1,10 @@
+.no-left-pad {
+  padding-left: 0 !important;
+}
+
+#select-option {
+  border-style: solid !important;
+  border-color: rgb(220, 220, 220)!important;
+  border-radius: 4px !important;
+  background-color: white !important;
+}
