@@ -44,6 +44,7 @@ class AudioPlayer extends Component {
 
   handleSongEnd() {
     this.player.pause();
+    this.player.currentTime = 0;
     this.props.onPauseClick();
   }
 

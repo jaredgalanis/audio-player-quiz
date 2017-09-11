@@ -23,6 +23,7 @@ class Progress extends Component {
     this.progressBar.addEventListener('change', this.handleProgressUpdate);
     this.player.addEventListener('timeupdate', this.handleTimeUpdate);
     this.player.addEventListener('loadedmetadata', this.handleDuration);
+    this.player.addEventListener('ended', this.props.onSongEnd);
   }
 
   handleProgressUpdate() {
