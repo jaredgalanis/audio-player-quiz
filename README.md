@@ -1,3 +1,13 @@
+## Welcome to my response to the audio player quiz!
+
+Some things to note:
+
+* As suggested the project was created with create react app so just clone and npm start to get started. 
+* There were streaming issues with FMA.org mp3 files (they did not allow seekability of as yet unbuffered data and buffering was poor and often hung), the songs are a mix of locally stored mp3's and some streams from archive.org, which is also freely available, but which had better streaming handling on their end.
+* The local mp3s are not using process.env.PUBLIC_URL in order to capture the url dynamically, but this could and should be handled if the app were deployed.
+* Song data in the JSON file is written in JSON-API spec.
+* Happy streaming!!!
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
