@@ -4,43 +4,52 @@ class Progress extends Component {
   constructor(props) {
     super(props);
 
+    // lets bind our context
     this.handleDuration = this.handleDuration.bind(this);
     this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
     this.handleMakeTimeReadable = this.handleMakeTimeReadable.bind(this);
     this.handleProgressUpdate = this.handleProgressUpdate.bind(this);
 
+    // and set our initial state
     this.state = {currentTime: null, duration: null};
   }
 
   componentDidMount() {
+    // set properties requiring the presence of DOM elements that you'll need across the class
     this.player = document.getElementsByClassName('player')[0];
     this.progressBar = document.getElementsByClassName('progress')[0];
 
+    // listen up for your events
     this.progressBar.addEventListener('change', this.handleProgressUpdate);
     this.player.addEventListener('timeupdate', this.handleTimeUpdate);
     this.player.addEventListener('loadedmetadata', this.handleDuration);
   }
 
   handleProgressUpdate() {
+    // sync player current time prop with progress bar
     this.player.currentTime = this.progressBar.value;
   }
 
   handleDuration() {
+    // sync progress bar and player durations
     this.progressBar.max = this.player.duration;
 
+    // format the duration for readability and set the duration state
     let readableDuration = this.handleMakeTimeReadable(this.player.duration);
     this.setState({duration: readableDuration});
-
   }
 
   handleTimeUpdate() {
+    // format current time for readability
     let readableTime = this.handleMakeTimeReadable(this.player.currentTime);
 
+    // sync the progress bar progress with player and set the current time state
     this.progressBar.value = this.player.currentTime;
     this.setState({currentTime: readableTime});
   }
 
   handleMakeTimeReadable(seconds) {
+    // make time human readable in minutes and seconds m:ss
     let sec, min;
 
     sec = Math.floor( seconds );
@@ -52,7 +61,7 @@ class Progress extends Component {
   }
 
   componentWillUnmount() {
-    // clean up your rooms kids
+    // clean up your room kids
     this.progressBar.removeEventListener('change', this.handleProgressUpdate);
     this.player.removeEventListener('loadedmetadata', this.handleDuration);
     this.player.removeEventListener('timeupdate', this.handleTimeUpdate);

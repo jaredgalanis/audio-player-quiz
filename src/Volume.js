@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import Speaker from './volume.svg';
-import './Volume.css';
 
 class Volume extends Component {
   constructor(props) {
     super(props);
+
+    // lets set our initial state
     this.state = {volumeDrag: false, volume: null};
   }
 
   componentDidMount() {
+    // set properties requiring the presence of DOM elements that you'll need across the class
     this.volume = document.getElementsByClassName('volume')[0];
     this.volumeBar = document.getElementsByClassName('volumeBar')[0];
 
-    // set the initial volume
+    // set the initial volume with state from above
     this.volumeBar.style.width = `${this.props.initialVolume * 100}%`;
 
-    // add event listeners for handling volume change mouse events
+    // listen up for your events
     this.volume.addEventListener('mousedown', (e) => {
       e.preventDefault();
       this.setState({volumeDrag: true});
@@ -59,6 +61,7 @@ class Volume extends Component {
     this.volumeBar.style.width = `${percentage}%`;
     let volumePercent = percentage / 100;
 
+    // set local state and lift inherited state for changes at the ancestor level
     this.setState({volume: volumePercent});
     this.props.onVolumeChange(volumePercent);
   };

@@ -3,12 +3,12 @@ import Volume from './Volume';
 import Progress from './Progress';
 import Play from './play.svg';
 import Pause from './pause.svg';
-import './AudioPlayer.css';
 
 class AudioPlayer extends Component {
   constructor(props) {
     super(props);
 
+    // lets bind our context
     this.handleVolumeChange = this.handleVolumeChange.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.handlePauseClick = this.handlePauseClick.bind(this);
@@ -16,6 +16,7 @@ class AudioPlayer extends Component {
   }
 
   componentDidMount() {
+    // set properties requiring the presence of DOM elements that you'll need across the class
     this.player = document.getElementsByClassName('player')[0];
     this.progressBar = document.getElementsByClassName('progress')[0];
 
@@ -25,7 +26,6 @@ class AudioPlayer extends Component {
 
     this.player.addEventListener('canplay', this.props.onSongLoaded());
     this.player.addEventListener('ended', this.props.handleSongEnd);
-
   }
 
   handleVolumeChange(volume) {

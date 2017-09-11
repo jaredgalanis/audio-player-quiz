@@ -1,19 +1,18 @@
 import React, { Component } from 'react';
 import AudioPlayer from './AudioPlayer';
 import SelectOption from './SelectOption';
-import './PlayerContainer.css';
 
 class PlayerContainer extends Component {
   constructor(props) {
     super(props);
 
-    //don't forget to bind the correct value of this to the methods handling state change
+    // lets bind our context
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.handlePauseClick = this.handlePauseClick.bind(this);
     this.handleSongLoaded = this.handleSongLoaded.bind(this);
 
-    // load initial states
+    // and set our initial state
     this.state = {
       isLoadingJSON: true,
       isLoadingMP3: false,
@@ -25,19 +24,24 @@ class PlayerContainer extends Component {
   }
 
   componentDidMount() {
-    // fetch the song JSON data and update loading state. songs are a mix of local and remote songs. I ended up using music from archive.org because most resources on FMA.org were not streamable for me. And fetching the entire song from there was a long task.
+    // fetch the song JSON data (formatted in conformance with JSON-API spec) and update loading state. songs are a mix of local and remote songs. I ended up using music from archive.org because most resources on FMA.org were not streamable for me. And fetching the entire song from there was a long task.
     fetch(process.env.PUBLIC_URL + '/songData.json').then((response) => {
+      // if the response is 200 or OK process the JSON.
       if(response.ok) {
         response.json().then((data) => {
+          // set state with first song data
           this.setState({songs: data, selectedOption: data.data[0], isLoadingJSON: false});
         });
       }
+      // or throw and log error msg if it was not.
+      throw new Error('Network response was not ok.');
     }).catch(function(error) {
       console.log(`There has been a problem with your fetch operation: ${error.message}`);
     });
   }
 
   handleSelectChange(selectionId) {
+    // return the selected song obj with matching id
     let selectedSong = this.state.songs.data.filter((song) => {
       return song.id === selectionId;
     });
@@ -59,7 +63,7 @@ class PlayerContainer extends Component {
   }
 
   render() {
-    // prepare all the things to subcomponents as const to prevent undesired direct manipulation of state
+    // prepare all the things being passed to child components as const to prevent undesired direct manipulation of state. prefer single var/let/const declaration style for readability even if not totally necessary.
     const isLoadingJSON = this.state.isLoadingJSON,
           isLoadingMP3 = this.state.isLoadingMP3,
           songs = this.state.songs ? this.state.songs.data : null,
@@ -68,7 +72,7 @@ class PlayerContainer extends Component {
           initialTime = this.state.initialTime,
           initialVolume = this.state.initialVolume;
 
-    // account for potential long load times of song JSON data and song files in JSX logic
+    // handle potential long load times of song JSON data and song files in JSX logic with conditional rendering
     return (
       <div className="App" id="overrides">
         {isLoadingJSON ? (
