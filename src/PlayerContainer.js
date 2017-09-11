@@ -24,11 +24,23 @@ class PlayerContainer extends Component {
       initialVolume: .75};
   }
 
-  handleSelectChange(selectionId) {
-    let player = document.getElementsByClassName("player")[0],
-        selectedSong = this.state.songs.data.filter((song) => {
-          return song.id === selectionId;
+  componentDidMount() {
+    // fetch the song JSON data and update loading state. songs are a mix of local and remote songs. I ended up using music from archive.org because most resources on FMA.org were not streamable for me. And fetching the entire song from there was a long task.
+    fetch(process.env.PUBLIC_URL + '/songData.json').then((response) => {
+      if(response.ok) {
+        response.json().then((data) => {
+          this.setState({songs: data, selectedOption: data.data[0], isLoadingJSON: false});
         });
+      }
+    }).catch(function(error) {
+      console.log(`There has been a problem with your fetch operation: ${error.message}`);
+    });
+  }
+
+  handleSelectChange(selectionId) {
+    let selectedSong = this.state.songs.data.filter((song) => {
+      return song.id === selectionId;
+    });
 
     // update to the state for the newly picked song
     this.setState({selectedOption: selectedSong[0], isPlaying: false, isLoadingMP3: true});
@@ -44,19 +56,6 @@ class PlayerContainer extends Component {
 
   handleSongLoaded() {
     this.setState({isLoadingMP3: false});
-  }
-
-  componentDidMount() {
-    // fetch the song JSON data and update loading state. songs are a mix of local and remote songs. I ended up using music from archive.org because most resources on FMA.org were not streamable for me. And fetching the entire song from there was a long task.
-    fetch(process.env.PUBLIC_URL + '/songData.json').then((response) => {
-      if(response.ok) {
-        response.json().then((data) => {
-          this.setState({songs: data, selectedOption: data.data[0], isLoadingJSON: false});
-        });
-      }
-    }).catch(function(error) {
-      console.log(`There has been a problem with your fetch operation: ${error.message}`);
-    });
   }
 
   render() {

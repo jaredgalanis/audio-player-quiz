@@ -12,72 +12,49 @@ class AudioPlayer extends Component {
     this.handleVolumeChange = this.handleVolumeChange.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.handlePauseClick = this.handlePauseClick.bind(this);
-    this.handleDurationChange = this.handleDurationChange.bind(this);
+    this.handleSongEnd = this.handleSongEnd.bind(this);
+  }
 
-    this.state = {volume: null, duration: null};
+  componentDidMount() {
+    this.player = document.getElementsByClassName('player')[0];
+    this.progressBar = document.getElementsByClassName('progress')[0];
+
+    this.player.volume = this.props.initialVolume;
+    this.player.setAttribute('src', this.props.url);
+    this.player.load();
+
+    this.player.addEventListener('canplay', this.props.onSongLoaded());
+    this.player.addEventListener('ended', this.props.handleSongEnd);
+
   }
 
   handleVolumeChange(volume) {
-    let player = document.getElementsByClassName('player')[0];
-    player.volume = volume;
-    this.setState({volume: volume});
+    this.player.volume = volume;
   }
 
   handlePlayClick() {
-    let player = document.getElementsByClassName('player')[0];
-    player.play();
+    this.player.play();
     this.props.onPlayClick();
   }
 
   handlePauseClick() {
-    let player = document.getElementsByClassName('player')[0];
-    player.pause();
+    this.player.pause();
     this.props.onPauseClick();
   }
 
-  handleDurationChange(duration) {
-    this.setState({duration: duration});
-  }
-
-  componentDidMount() {
-    let player = document.getElementsByClassName('player')[0];
-    player.volume = this.props.initialVolume;
-
-    player.setAttribute('src', this.props.url);
-    player.load();
-
-    player.addEventListener('canplay', this.props.onSongLoaded());
-
-    ////////////////////////////////////////////////////
-   // Alt fetch strategy if need to grab whole song. //
-  // Ended up not needing, but thought it would be  //
- //good visibility into my thinking.               //
-////////////////////////////////////////////////////
-
-    // fetch(process.env.PUBLIC_URL + this.props.url).then(function(response) {
-    //   if(response.ok) {
-    //     return response.blob();
-    //   }
-    // }).then(function(myBlob) {
-    //   let objectURL = URL.createObjectURL(myBlob);
-    //   player.setAttribute('src',objectURL);
-    //   player.load();
-    // }).catch(function(error) {
-    //   console.log(`There has been a problem with your fetch operation: ${error.message}`);
-    // });
+  handleSongEnd() {
+    this.player.pause();
+    this.props.onPauseClick();
   }
 
   componentWillUnmount() {
-    let player = document.getElementsByClassName('player')[0];
-
-    player.removeEventListener('canplay', this.props.onSongLoaded());
+    this.player.removeEventListener('canplay', this.props.onSongLoaded());
   }
 
   render() {
     const initialVolume = this.props.initialVolume,
           artist = this.props.artist,
-          title = this.props.title,
-          duration = this.state.duration;
+          title = this.props.title;
 
     let playPause = null;
 
@@ -106,7 +83,7 @@ class AudioPlayer extends Component {
           <audio className="player" preload="auto" type="audio/mpeg" />
         </div>
         <div className="row col-sm-12">
-          <Progress duration={duration} onDurationChange={this.handleDurationChange} />
+          <Progress onSongEnd={this.handleSongEnd} />
         </div>
       </div>
     );

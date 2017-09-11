@@ -5,46 +5,18 @@ import './Volume.css';
 class Volume extends Component {
   constructor(props) {
     super(props);
-    this.state = {volumeDrag: false};
+    this.state = {volumeDrag: false, volume: null};
   }
 
-  // an alternative strategy to using an input with a range type to create a slider (see progress bar for input range type version)
-  handleUpdateVolume(x, vol) {
-    let volume = document.getElementsByClassName('volume')[0],
-        volumeBar = document.getElementsByClassName('volumeBar')[0],
-        percentage;
-
-    // if vol is passed set the percentage of slider fill as that, otherwise allow the cursor position (as relative to the left bounding rect) determine the slider fill
-    if (vol) {
-      percentage = vol * 100;
-    } else {
-      let position = x - volume.getBoundingClientRect().left;
-      percentage = 100 * position / volume.offsetWidth;
-    }
-
-    // handle if percent greater or less than max or min of possible slider fill
-    if (percentage > 100) {
-      percentage = 100;
-    }
-    if (percentage < 0) {
-      percentage = 0;
-    }
-
-    // set the fill of the slider using percentage calculated
-    volumeBar.style.width = `${percentage}%`;
-    let volumePercent = percentage / 100;
-    this.props.onVolumeChange(volumePercent);
-  };
-
   componentDidMount() {
-    let volumeSlider = document.getElementsByClassName('volume')[0],
-        volumeBar = document.getElementsByClassName('volumeBar')[0];
+    this.volume = document.getElementsByClassName('volume')[0];
+    this.volumeBar = document.getElementsByClassName('volumeBar')[0];
 
     // set the initial volume
-    volumeBar.style.width = `${this.props.initialVolume * 100}%`;
+    this.volumeBar.style.width = `${this.props.initialVolume * 100}%`;
 
     // add event listeners for handling volume change mouse events
-    volumeSlider.addEventListener('mousedown', (e) => {
+    this.volume.addEventListener('mousedown', (e) => {
       e.preventDefault();
       this.setState({volumeDrag: true});
       this.handleUpdateVolume(e.pageX);
@@ -64,13 +36,32 @@ class Volume extends Component {
     });
   }
 
-  componentWillUnmount() {
-    // let volumeSlider = document.getElementsByClassName('volume')[0];
-    // volumeSlider.addEventListener('mousedown');
-    // document.addEventListener('mouseup');
-    // document.addEventListener('mouseup');
-    // document.addEventListener('mousemove');
-  }
+  // an alternative strategy to using an input with a range type to create a slider (see progress bar for input range type version)
+  handleUpdateVolume(x, vol) {
+    let percentage;
+    // if vol is passed set the percentage of slider fill as that, otherwise allow the cursor position (as relative to the left bounding rect) determine the slider fill
+    if (vol) {
+      percentage = vol * 100;
+    } else {
+      let position = x - this.volume.getBoundingClientRect().left;
+      percentage = 100 * position / this.volume.offsetWidth;
+    }
+
+    // handle if percent greater or less than max or min of possible slider fill
+    if (percentage > 100) {
+      percentage = 100;
+    }
+    if (percentage < 0) {
+      percentage = 0;
+    }
+
+    // set the fill of the slider using percentage calculated
+    this.volumeBar.style.width = `${percentage}%`;
+    let volumePercent = percentage / 100;
+
+    this.setState({volume: volumePercent});
+    this.props.onVolumeChange(volumePercent);
+  };
 
   render() {
     return (

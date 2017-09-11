@@ -1,42 +1,42 @@
 import React, { Component } from 'react';
-import './Progress.css'
 
 class Progress extends Component {
   constructor(props) {
     super(props);
 
-    this.handleProgressUpdate = this.handleProgressUpdate.bind(this);
     this.handleDuration = this.handleDuration.bind(this);
     this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
     this.handleMakeTimeReadable = this.handleMakeTimeReadable.bind(this);
+    this.handleProgressUpdate = this.handleProgressUpdate.bind(this);
 
-    this.state = {currentTime: null};
+    this.state = {currentTime: null, duration: null};
+  }
+
+  componentDidMount() {
+    this.player = document.getElementsByClassName('player')[0];
+    this.progressBar = document.getElementsByClassName('progress')[0];
+
+    this.progressBar.addEventListener('change', this.handleProgressUpdate);
+    this.player.addEventListener('timeupdate', this.handleTimeUpdate);
+    this.player.addEventListener('loadedmetadata', this.handleDuration);
   }
 
   handleProgressUpdate() {
-    let player = document.getElementsByClassName('player')[0],
-        progressBar = document.getElementsByClassName('progress')[0];
-
-    player.currentTime = progressBar.value;
+    this.player.currentTime = this.progressBar.value;
   }
 
   handleDuration() {
-    let player = document.getElementsByClassName('player')[0],
-        progressBar = document.getElementsByClassName('progress')[0];
+    this.progressBar.max = this.player.duration;
 
-    progressBar.max = player.duration;
+    let readableDuration = this.handleMakeTimeReadable(this.player.duration);
+    this.setState({duration: readableDuration});
 
-    let duration = document.getElementsByClassName('player')[0].duration,
-        readableDuration = this.handleMakeTimeReadable(duration);
-    this.props.onDurationChange(readableDuration);
   }
 
   handleTimeUpdate() {
-    let player = document.getElementsByClassName('player')[0],
-        progressBar = document.getElementsByClassName('progress')[0],
-        readableTime = this.handleMakeTimeReadable(player.currentTime);
+    let readableTime = this.handleMakeTimeReadable(this.player.currentTime);
 
-    progressBar.value = player.currentTime;
+    this.progressBar.value = this.player.currentTime;
     this.setState({currentTime: readableTime});
   }
 
@@ -51,28 +51,16 @@ class Progress extends Component {
     return `${min}:${sec}`;
   }
 
-  componentDidMount() {
-    let player = document.getElementsByClassName('player')[0],
-        progressBar = document.getElementsByClassName('progress')[0];
-
-    progressBar.addEventListener('change', this.handleProgressUpdate);
-    player.addEventListener('timeupdate', this.handleTimeUpdate);
-    player.addEventListener('loadedmetadata', this.handleDuration);
-  }
-
   componentWillUnmount() {
     // clean up your rooms kids
-    let player = document.getElementsByClassName('player')[0],
-        progressBar = document.getElementsByClassName('progress')[0];
-
-    progressBar.removeEventListener('change', this.handleProgressUpdate);
-    player.removeEventListener('loadedmetadata', this.handleDuration);
-    player.removeEventListener('timeupdate', this.handleTimeUpdate);
+    this.progressBar.removeEventListener('change', this.handleProgressUpdate);
+    this.player.removeEventListener('loadedmetadata', this.handleDuration);
+    this.player.removeEventListener('timeupdate', this.handleTimeUpdate);
   }
 
   render() {
     const initialTime = this.props.initialTime,
-          duration = this.props.duration,
+          duration = this.state.duration,
           currentTime = this.state.currentTime;
 
     return (
