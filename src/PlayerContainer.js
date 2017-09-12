@@ -28,9 +28,9 @@ class PlayerContainer extends Component {
     fetch(process.env.PUBLIC_URL + '/songData.json').then((response) => {
       // if the response is 200 or OK process the JSON.
       if(response.ok) {
-        response.json().then((data) => {
+        return response.json().then((data) => {
           // set state with first song data
-          this.setState({songs: data, selectedOption: data.data[0], isLoadingJSON: false});
+          return this.setState({songs: data, selectedOption: data.data[0], isLoadingJSON: false});
         });
       }
       // or throw and log error msg if it was not.
