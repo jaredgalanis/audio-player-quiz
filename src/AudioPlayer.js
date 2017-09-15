@@ -5,16 +5,6 @@ import Play from './play.svg';
 import Pause from './pause.svg';
 
 class AudioPlayer extends Component {
-  constructor(props) {
-    super(props);
-
-    // lets bind our context
-    // leaving this style of binding since arrow functions are best suited for non-method functions and all the handle functions are methods on the class https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions. just mentioning here so you don't think I ignored your feedback.
-    this.handleVolumeChange = this.handleVolumeChange.bind(this);
-    this.handlePlayClick = this.handlePlayClick.bind(this);
-    this.handlePauseClick = this.handlePauseClick.bind(this);
-    this.handleSongEnd = this.handleSongEnd.bind(this);
-  }
 
   componentDidMount() {
     // set properties requiring the presence of DOM elements that you'll need across the class
@@ -25,31 +15,31 @@ class AudioPlayer extends Component {
     this.player.setAttribute('src', this.props.url);
     this.player.load();
 
-    this.player.addEventListener('canplay', this.props.onSongLoaded());
+    // this.player.addEventListener('canplay', this.props.onSongLoaded());
     this.player.addEventListener('ended', this.props.handleSongEnd);
   }
 
-  handleVolumeChange(volume) {
+  handleVolumeChange = (volume) => {
     this.player.volume = volume;
   }
 
-  handlePlayClick() {
+  handlePlayClick = () => {
     this.player.play();
     this.props.onPlayClick();
   }
 
-  handlePauseClick() {
+  handlePauseClick = () => {
     this.player.pause();
     this.props.onPauseClick();
   }
 
-  handleSongEnd() {
+  handleSongEnd = () => {
     this.player.pause();
     this.player.currentTime = 0;
     this.props.onPauseClick();
   }
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     this.player.removeEventListener('canplay', this.props.onSongLoaded());
   }
 

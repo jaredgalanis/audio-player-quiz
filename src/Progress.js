@@ -3,14 +3,6 @@ import React, { Component } from 'react';
 class Progress extends Component {
   constructor(props) {
     super(props);
-
-    // lets bind our context
-    // leaving this style of binding since arrow functions are best suited for non-method functions and all the handle functions are methods on the class https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions. just mentioning here so you don't think I ignored your feedback.
-    this.handleDuration = this.handleDuration.bind(this);
-    this.handleTimeUpdate = this.handleTimeUpdate.bind(this);
-    this.handleMakeTimeReadable = this.handleMakeTimeReadable.bind(this);
-    this.handleProgressUpdate = this.handleProgressUpdate.bind(this);
-
     // and set our initial state
     this.state = {currentTime: this.handleMakeTimeReadable(0), duration: this.handleMakeTimeReadable(0)};
   }
@@ -27,12 +19,12 @@ class Progress extends Component {
     this.player.addEventListener('ended', this.props.onSongEnd);
   }
 
-  handleProgressUpdate() {
+  handleProgressUpdate = () => {
     // sync player current time prop with progress bar
     this.player.currentTime = this.progressBar.value;
   }
 
-  handleDuration() {
+  handleDuration = () => {
     // sync progress bar and player durations
     this.progressBar.max = this.player.duration;
 
@@ -41,7 +33,7 @@ class Progress extends Component {
     this.setState({duration: readableDuration});
   }
 
-  handleTimeUpdate() {
+  handleTimeUpdate = () => {
     // format current time for readability
     let readableTime = this.handleMakeTimeReadable(this.player.currentTime);
 
@@ -50,7 +42,7 @@ class Progress extends Component {
     this.setState({currentTime: readableTime});
   }
 
-  handleMakeTimeReadable(seconds) {
+  handleMakeTimeReadable = (seconds) => {
     // make time human readable in minutes and seconds m:ss
     let sec, min;
 

@@ -6,13 +6,6 @@ class PlayerContainer extends Component {
   constructor(props) {
     super(props);
 
-    // lets bind our context
-    // leaving this style of binding since arrow functions are best suited for non-method functions and all the handle functions are methods on the class https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions. just mentioning here so you don't think I ignored your feedback.
-    this.handleSelectChange = this.handleSelectChange.bind(this);
-    this.handlePlayClick = this.handlePlayClick.bind(this);
-    this.handlePauseClick = this.handlePauseClick.bind(this);
-    this.handleSongLoaded = this.handleSongLoaded.bind(this);
-
     // and set our initial state
     this.state = {
       isLoadingJSON: true,
@@ -41,7 +34,7 @@ class PlayerContainer extends Component {
     });
   }
 
-  handleSelectChange(selectionId) {
+  handleSelectChange = (selectionId) => {
     // return the selected song obj with matching id
     let selectedSong = this.state.songs.data.filter((song) => {
       return song.id === selectionId;
@@ -51,15 +44,15 @@ class PlayerContainer extends Component {
     this.setState({selectedOption: selectedSong[0], isPlaying: false, isLoadingMP3: true});
   }
 
-  handlePlayClick() {
+  handlePlayClick = () => {
     this.setState({isPlaying: true});
   }
 
-  handlePauseClick() {
+  handlePauseClick = () => {
     this.setState({isPlaying: false});
   }
 
-  handleSongLoaded() {
+  handleSongLoaded = () => {
     this.setState({isLoadingMP3: false});
   }
 

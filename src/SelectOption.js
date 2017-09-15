@@ -2,15 +2,8 @@ import React, { Component } from 'react';
 import './SelectOption.css';
 
 class SelectOption extends Component {
-  constructor(props) {
-    super(props);
 
-    // lets bind our context
-    // leaving this style of binding since arrow functions are best suited for non-method functions and all the handle functions are methods on the class https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions. just mentioning here so you don't think I ignored your feedback.
-    this.handleSelectChange = this.handleSelectChange.bind(this);
-  }
-
-  handleSelectChange(e) {
+  handleSelectChange = (e) => {
     // lift inherited state for changes at the ancestor level
     this.props.onSelectChange(e.target.value);
   }
