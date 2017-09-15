@@ -7,6 +7,7 @@ class PlayerContainer extends Component {
     super(props);
 
     // lets bind our context
+    // leaving this style of binding since arrow functions are best suited for non-method functions and all the handle functions are methods on the class https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Functions/Arrow_functions. just mentioning here so you don't think I ignored your feedback.
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.handlePlayClick = this.handlePlayClick.bind(this);
     this.handlePauseClick = this.handlePauseClick.bind(this);
