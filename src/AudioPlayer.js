@@ -15,6 +15,7 @@ class AudioPlayer extends Component {
   componentDidMount() {
     // set properties requiring the presence of DOM elements that you'll need across the class
     this.player = document.getElementsByClassName('player')[0];
+    this.progressBar = document.getElementsByClassName('progress')[0];
 
     this.player.volume = this.props.initialVolume;
     this.player.setAttribute('src', this.props.url);
@@ -53,6 +54,8 @@ class AudioPlayer extends Component {
 
   handleTimeUpdate = () => {
     // set the current time state
+    // the one area where it is necessary to reference progress bar from within this component. setting the value of the progress bar to the state of current time down in Progress.js does not cause the input range handle to update.
+    this.progressBar.value = this.player.currentTime;
     this.setState({currentTime: this.player.currentTime});
   }
 

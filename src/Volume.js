@@ -18,12 +18,6 @@ class Volume extends Component {
     this.volumeBar.style.width = `${this.props.initialVolume * 100}%`;
 
     // listen up for your events
-    this.volume.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-      this.setState({volumeDrag: true});
-      this.handleUpdateVolume(e.pageX);
-    });
-
     document.addEventListener('mouseup', (e) => {
       if (this.state.volumeDrag) {
         this.setState({volumeDrag: false});
@@ -38,16 +32,17 @@ class Volume extends Component {
     });
   }
 
+  handleMouseDown = (e) => {
+    e.preventDefault();
+    this.setState({volumeDrag: true});
+    this.handleUpdateVolume(e.pageX);
+  }
+
   // an alternative strategy to using an input with a range type to create a slider (see progress bar for input range type version)
   handleUpdateVolume(x, vol) {
-    let percentage;
     // if vol is passed set the percentage of slider fill as that, otherwise allow the cursor position (as relative to the left bounding rect) determine the slider fill
-    if (vol) {
-      percentage = vol * 100;
-    } else {
-      let position = x - this.volume.getBoundingClientRect().left;
-      percentage = 100 * position / this.volume.offsetWidth;
-    }
+    let position = x - this.volume.getBoundingClientRect().left,
+        percentage = 100 * position / this.volume.offsetWidth;
 
     // handle if percent greater or less than max or min of possible slider fill
     if (percentage > 100) {
@@ -73,7 +68,7 @@ class Volume extends Component {
           <img src={Speaker} className="speaker" alt="volume speaker" />
         </div>
         <div className="col-sm-11">
-          <div className="volume" title="Set volume">
+          <div className="volume" title="Set volume" onMouseDown={this.handleMouseDown}>
             <span className="volumeBar" />
           </div>
         </div>
