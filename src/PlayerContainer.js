@@ -9,7 +9,7 @@ class PlayerContainer extends Component {
     // and set our initial state
     this.state = {
       isLoadingJSON: true,
-      isLoadingMP3: false,
+      isLoadingMP3: true,
       songs: null,
       selectedOption: null,
       isPlaying: false,
@@ -66,34 +66,32 @@ class PlayerContainer extends Component {
 
     // handle potential long load times of song JSON data and song files in JSX logic with conditional rendering
     return (
-      <div className="App" id="overrides">
+      <div>
         {isLoadingJSON ? (
           <p>Loading Song List...</p>
         ) : (
           <div className="row">
-            {isLoadingMP3 ? (<p>Loading Song ...</p>) : (
-              <div>
-                <div className="row col-sm-12 no-left-pad">
-                  <div className="col-sm-2 pull-left no-left-pad">
-                    <SelectOption
-                      selectedOption={selectedOption} onSelectChange={this.handleSelectChange} optionData={songs} />
-                  </div>
-                  <div className="col-sm-10" />
+            <div>
+              <div className="row col-sm-12 no-left-pad">
+                <div className="col-sm-2 pull-left no-left-pad">
+                  <SelectOption
+                    selectedOption={selectedOption} onSelectChange={this.handleSelectChange} optionData={songs} />
                 </div>
-                <div className="player-container row col-sm-12">
-                  <AudioPlayer
-                    isPlaying={isPlaying}
-                    isLoadingMP3={isLoadingMP3}
-                    title={selectedOption.attributes.title}
-                    url={selectedOption.attributes.url}
-                    artist={selectedOption.attributes.artist}
-                    initialVolume={initialVolume}
-                    onPlayClick={this.handlePlayClick}
-                    onPauseClick={this.handlePauseClick}
-                    onSongLoaded={this.handleSongLoaded} />
-                </div>
+                <div className="col-sm-10" />
               </div>
-            )}
+              <div className="player-container row col-sm-12">
+                <AudioPlayer
+                  isPlaying={isPlaying}
+                  isLoadingMP3={isLoadingMP3}
+                  title={selectedOption.attributes.title}
+                  url={selectedOption.attributes.url}
+                  artist={selectedOption.attributes.artist}
+                  initialVolume={initialVolume}
+                  onSongLoaded={this.handleSongLoaded}
+                  onPlayClick={this.handlePlayClick}
+                  onPauseClick={this.handlePauseClick} />
+              </div>
+            </div>
           </div>
         )}
       </div>

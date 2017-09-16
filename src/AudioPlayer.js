@@ -15,10 +15,7 @@ class AudioPlayer extends Component {
   componentDidMount() {
     // set properties requiring the presence of DOM elements that you'll need across the class
     this.player = document.getElementsByClassName('player')[0];
-
     this.player.volume = this.props.initialVolume;
-    this.player.setAttribute('src', this.props.url);
-    this.player.load();
   }
 
   handleVolumeChange = (volume) => {
@@ -62,24 +59,26 @@ class AudioPlayer extends Component {
     this.player.currentTime = progress;
   }
 
-  componentWillUnmount() {
-    this.props.onSongLoaded();
-  }
-
   render() {
     const initialVolume = this.props.initialVolume,
+          isLoadingMP3 = this.props.isLoadingMP3,
           duration = this.state.duration,
           currentTime = this.state.currentTime,
           artist = this.props.artist,
-          title = this.props.title;
+          title = this.props.title,
+          url = this.props.url;
 
     let playPause = null;
 
     // sometimes conditional rendering just easier handled outside of JSX
-    if (this.props.isPlaying) {
-      playPause = <img className="center-block col-sm-4 no-left-pad" src={Pause} width="100" height="100" alt="pause" onClick={this.handlePauseClick} />
+    if (isLoadingMP3) {
+      playPause = <p>Loading Song...</p>
     } else {
-      playPause = <img className="center-block col-sm-4 no-left-pad" src={Play} width="100" height="100" alt="play" onClick={this.handlePlayClick} />
+      if (this.props.isPlaying) {
+        playPause = <img className="center-block col-sm-4 no-left-pad" src={Pause} width="100" height="100" alt="pause" onClick={this.handlePauseClick} />
+      } else {
+        playPause = <img className="center-block col-sm-4 no-left-pad" src={Play} width="100" height="100" alt="play" onClick={this.handlePlayClick} />
+      }
     }
 
     return (
@@ -97,7 +96,7 @@ class AudioPlayer extends Component {
               <Volume initialVolume={initialVolume} onVolumeChange={this.handleVolumeChange} />
             </div>
           </div>
-          <audio className="player" preload="auto" type="audio/mpeg" onCanPlay={this.handleSongLoaded} onTimeUpdate={this.handleTimeUpdate} onLoadedMetadata={this.handleDuration} onEnded={this.handleSongEnd} />
+          <audio className="player" preload="auto" type="audio/mpeg" onCanPlay={this.handleSongLoaded} onTimeUpdate={this.handleTimeUpdate} onLoadedMetadata={this.handleDuration} onEnded={this.handleSongEnd} src={url} />
         </div>
         <div className="row col-sm-12">
           <Progress duration={duration} currentTime={currentTime} onProgressUpdate={this.handleProgressUpdate} />
