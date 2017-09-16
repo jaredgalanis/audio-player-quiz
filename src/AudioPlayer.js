@@ -6,17 +6,19 @@ import Pause from './pause.svg';
 
 class AudioPlayer extends Component {
 
+  constructor(props) {
+    super(props);
+    // set our initial state
+    this.state = {currentTime: 0, duration: 0};
+  }
+
   componentDidMount() {
     // set properties requiring the presence of DOM elements that you'll need across the class
     this.player = document.getElementsByClassName('player')[0];
-    this.progressBar = document.getElementsByClassName('progress')[0];
 
     this.player.volume = this.props.initialVolume;
     this.player.setAttribute('src', this.props.url);
     this.player.load();
-
-    // this.player.addEventListener('canplay', this.props.onSongLoaded());
-    this.player.addEventListener('ended', this.props.handleSongEnd);
   }
 
   handleVolumeChange = (volume) => {
@@ -36,15 +38,38 @@ class AudioPlayer extends Component {
   handleSongEnd = () => {
     this.player.pause();
     this.player.currentTime = 0;
+    this.setState({currentTime: this.player.currentTime});
     this.props.onPauseClick();
   }
 
-  componentWillUnmount = () => {
-    this.player.removeEventListener('canplay', this.props.onSongLoaded());
+  handleSongLoaded = () => {
+    this.props.onSongLoaded();
+  }
+
+  handleDuration = () => {
+    // set the duration state
+    this.setState({duration: this.player.duration});
+  }
+
+  handleTimeUpdate = () => {
+    // set the current time state
+    this.setState({currentTime: this.player.currentTime});
+  }
+
+  handleProgressUpdate = (progress) => {
+    // sync player current time prop with progress bar
+    this.setState({currentTime: progress});
+    this.player.currentTime = progress;
+  }
+
+  componentWillUnmount() {
+    this.props.onSongLoaded();
   }
 
   render() {
     const initialVolume = this.props.initialVolume,
+          duration = this.state.duration,
+          currentTime = this.state.currentTime,
           artist = this.props.artist,
           title = this.props.title;
 
@@ -72,10 +97,10 @@ class AudioPlayer extends Component {
               <Volume initialVolume={initialVolume} onVolumeChange={this.handleVolumeChange} />
             </div>
           </div>
-          <audio className="player" preload="auto" type="audio/mpeg" />
+          <audio className="player" preload="auto" type="audio/mpeg" onCanPlay={this.handleSongLoaded} onTimeUpdate={this.handleTimeUpdate} onLoadedMetadata={this.handleDuration} onEnded={this.handleSongEnd} />
         </div>
         <div className="row col-sm-12">
-          <Progress onSongEnd={this.handleSongEnd} />
+          <Progress duration={duration} currentTime={currentTime} onProgressUpdate={this.handleProgressUpdate} />
         </div>
       </div>
     );

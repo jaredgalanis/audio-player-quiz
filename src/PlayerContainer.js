@@ -13,7 +13,6 @@ class PlayerContainer extends Component {
       songs: null,
       selectedOption: null,
       isPlaying: false,
-      initialTime: 0,
       initialVolume: .75};
   }
 
@@ -63,7 +62,6 @@ class PlayerContainer extends Component {
           songs = this.state.songs ? this.state.songs.data : null,
           selectedOption = this.state.selectedOption,
           isPlaying = this.state.isPlaying,
-          initialTime = this.state.initialTime,
           initialVolume = this.state.initialVolume;
 
     // handle potential long load times of song JSON data and song files in JSX logic with conditional rendering
@@ -89,7 +87,6 @@ class PlayerContainer extends Component {
                     title={selectedOption.attributes.title}
                     url={selectedOption.attributes.url}
                     artist={selectedOption.attributes.artist}
-                    initialTime={initialTime}
                     initialVolume={initialVolume}
                     onPlayClick={this.handlePlayClick}
                     onPauseClick={this.handlePauseClick}

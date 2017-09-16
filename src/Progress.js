@@ -1,49 +1,19 @@
 import React, { Component } from 'react';
 
 class Progress extends Component {
-  constructor(props) {
-    super(props);
-    // and set our initial state
-    this.state = {currentTime: this.handleMakeTimeReadable(0), duration: this.handleMakeTimeReadable(0)};
-  }
-
   componentDidMount() {
     // set properties requiring the presence of DOM elements that you'll need across the class
-    this.player = document.getElementsByClassName('player')[0];
     this.progressBar = document.getElementsByClassName('progress')[0];
-
-    // listen up for your events
-    this.progressBar.addEventListener('change', this.handleProgressUpdate);
-    this.player.addEventListener('timeupdate', this.handleTimeUpdate);
-    this.player.addEventListener('loadedmetadata', this.handleDuration);
-    this.player.addEventListener('ended', this.props.onSongEnd);
   }
 
-  handleProgressUpdate = () => {
-    // sync player current time prop with progress bar
-    this.player.currentTime = this.progressBar.value;
-  }
-
-  handleDuration = () => {
-    // sync progress bar and player durations
-    this.progressBar.max = this.player.duration;
-
-    // format the duration for readability and set the duration state
-    let readableDuration = this.handleMakeTimeReadable(this.player.duration);
-    this.setState({duration: readableDuration});
-  }
 
   handleTimeUpdate = () => {
-    // format current time for readability
-    let readableTime = this.handleMakeTimeReadable(this.player.currentTime);
-
-    // sync the progress bar progress with player and set the current time state
-    this.progressBar.value = this.player.currentTime;
-    this.setState({currentTime: readableTime});
+    // set the current time state
+    this.setState({currentTime: this.player.currentTime});
   }
 
   handleMakeTimeReadable = (seconds) => {
-    // make time human readable in minutes and seconds m:ss
+    // make time human readable in minutes and seconds mm:ss
     let sec, min;
 
     sec = Math.floor( seconds );
@@ -54,24 +24,23 @@ class Progress extends Component {
     return `${min}:${sec}`;
   }
 
-  componentWillUnmount() {
-    // clean up your room kids
-    this.progressBar.removeEventListener('change', this.handleProgressUpdate);
-    this.player.removeEventListener('loadedmetadata', this.handleDuration);
-    this.player.removeEventListener('timeupdate', this.handleTimeUpdate);
+  handleProgressUpdate = () => {
+    // sync player current time prop with progress bar
+    this.props.onProgressUpdate(this.progressBar.value);
   }
 
   render() {
-    const initialTime = this.props.initialTime,
-          duration = this.state.duration,
-          currentTime = this.state.currentTime;
+    const readableDuration = this.handleMakeTimeReadable(this.props.duration),
+          readableCurrentTime = this.handleMakeTimeReadable(this.props.currentTime),
+          duration = this.props.duration,
+          currentTime = this.props.currentTime;
 
     return (
       <div>
-      <h6 className="pull-right">{currentTime} / {duration}</h6>
-      <div className="progress-container">
-        <input className="progress" type="range" defaultValue={initialTime} />
-      </div>
+        <h6 className="pull-right">{readableCurrentTime} / {readableDuration}</h6>
+        <div className="progress-container">
+          <input className="progress" type="range" defaultValue={currentTime} max={duration} onChange={this.handleProgressUpdate} />
+        </div>
       </div>
     );
   }
