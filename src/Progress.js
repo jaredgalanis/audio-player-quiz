@@ -6,11 +6,6 @@ class Progress extends Component {
     this.progressBar = document.getElementsByClassName('progress')[0];
   }
 
-  handleTimeUpdate = () => {
-    // set the current time state
-    this.setState({currentTime: this.player.currentTime});
-  }
-
   handleMakeTimeReadable = (seconds) => {
     // make time human readable in minutes and seconds mm:ss
     let sec, min;
@@ -31,13 +26,14 @@ class Progress extends Component {
   render() {
     const readableDuration = this.handleMakeTimeReadable(this.props.duration),
           readableCurrentTime = this.handleMakeTimeReadable(this.props.currentTime),
+          currentTime = this.props.currentTime,
           duration = this.props.duration;
 
     return (
       <div>
         <h6 className="pull-right">{readableCurrentTime} / {readableDuration}</h6>
         <div className="progress-container">
-          <input className="progress" type="range" max={duration} onChange={this.handleProgressUpdate} />
+          <input className="progress" type="range" value={currentTime} max={duration} onChange={this.handleProgressUpdate} />
         </div>
       </div>
     );
